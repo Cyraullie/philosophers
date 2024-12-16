@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:54:30 by cgoldens          #+#    #+#             */
-/*   Updated: 2024/12/13 16:03:59 by cgoldens         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:57:39 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,8 @@ typedef struct s_data
 	long int		t_start;
 }	t_data;
 
+long long	timestamp();
+t_data	*data_init(char **ag);
+int	ft_atoi(const char *str);
+long long	actual_ms(long long ms, long long start);
 #endif
