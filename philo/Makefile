@@ -6,7 +6,7 @@
 #    By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/08 11:31:20 by cgoldens          #+#    #+#              #
-#    Updated: 2024/12/16 11:40:36 by cgoldens         ###   ########.fr        #
+#    Updated: 2024/12/16 14:46:57 by cgoldens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -rf
 
-SRCS = main.c libft.c utils.c init.c
+SRCS = main.c libft.c utils.c init.c philo.c
 
 OBJS = $(SRCS:.c=.o)
 
