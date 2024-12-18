@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:03 by cgoldens          #+#    #+#             */
-/*   Updated: 2024/12/17 11:27:12 by cgoldens         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:47:39 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	check_num(char **str)
 
 int	data_init(t_data *data, char **ag)
 {
+	data->nb_philo = ft_atoi(ag[1]);
 	data->philo = malloc(sizeof(t_philo) * data->nb_philo);
 	if (data->philo == NULL)
 		return (2);
@@ -44,7 +45,6 @@ int	data_init(t_data *data, char **ag)
 		printf("Invalid Arguments\n");
 		return (1);
 	}
-	data->nb_philo = ft_atoi(ag[1]);
 	data->t_die = ft_atoi(ag[2]);
 	data->t_eat = ft_atoi(ag[3]);
 	data->t_sleep = ft_atoi(ag[4]);

@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:45:50 by cgoldens          #+#    #+#             */
-/*   Updated: 2024/12/17 11:26:32 by cgoldens         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:46:38 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ int	main(int ac, char **ag)
 	usleep(5000);
 	//printf("time %lld\nnb philo : %d\ntime to die : %d\ntime to eat : %d\ntime to sleep : %d\nnb eat to finish : %d\n", actual_ms(timestamp(), data.t_start), data.nb_philo, data.t_die, data.t_eat, data.t_sleep, data.n_eat );
 	print(&data.philo[1], "test");
+	print(&data.philo[2], "test");
+	print(&data.philo[3], "test");
 	return (0);
 }
