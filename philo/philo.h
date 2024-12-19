@@ -6,14 +6,13 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:54:30 by cgoldens          #+#    #+#             */
-/*   Updated: 2024/12/19 14:32:35 by cgoldens         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:22:43 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <string.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
