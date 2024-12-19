@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:03 by cgoldens          #+#    #+#             */
-/*   Updated: 2024/12/19 15:23:43 by cgoldens         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:27:01 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ int	check_num(char **str)
 
 int	data_init(t_data *data, char **ag)
 {
+	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->m_stop, NULL);
+	pthread_mutex_init(&data->m_eat, NULL);
+	pthread_mutex_init(&data->dead, NULL);
+	data->stop = 0;
 	data->nb_philo = ft_atoi(ag[1]);
 	data->philo = malloc(sizeof(t_philo) * data->nb_philo);
 	if (data->philo == NULL)
@@ -48,7 +53,6 @@ int	data_init(t_data *data, char **ag)
 	data->t_die = ft_atoi(ag[2]);
 	data->t_eat = ft_atoi(ag[3]);
 	data->t_sleep = ft_atoi(ag[4]);
-	data->stop = 0;
 	if (ag[5])
 		data->n_eat = ft_atoi(ag[5]);
 	else
