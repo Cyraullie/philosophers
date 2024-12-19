@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:54:30 by cgoldens          #+#    #+#             */
-/*   Updated: 2024/12/17 11:31:08 by cgoldens         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:32:35 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ typedef struct s_data
 	int				t_sleep;
 	int				n_eat;
 	long int		t_start;
+	int				stop;
 	t_philo			*philo;
+	pthread_mutex_t	print;
 	pthread_mutex_t	m_stop;
 	pthread_mutex_t	m_eat;
+	pthread_mutex_t	dead;
 }	t_data;
 
 long long	timestamp();
@@ -54,7 +57,9 @@ int	ft_isdigit(int c);
 int	philo_init(t_data *data);
 void	print(t_philo *phi, char *str);
 void	philo_eat(t_philo *philo);
-/*void	take_fork(t_philo *philo);
+void	ft_usleep(int ms);
+void	take_fork(t_philo *philo);
 void	*check_death(void *phi);
-void	*philo_life(void *phi);*/
+void	*philo_life(void *phi);
+int	is_dead(t_philo *philo, int nb);
 #endif
