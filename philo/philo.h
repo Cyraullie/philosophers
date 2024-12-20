@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:54:30 by cgoldens          #+#    #+#             */
-/*   Updated: 2024/12/19 16:22:43 by cgoldens         ###   ########.fr       */
+/*   Updated: 2024/12/20 14:21:11 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
+# include <limits.h>
 
 
 typedef struct s_philo

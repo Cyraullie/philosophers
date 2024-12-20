@@ -6,13 +6,11 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:40:29 by cgoldens          #+#    #+#             */
-/*   Updated: 2024/12/19 16:32:25 by cgoldens         ###   ########.fr       */
+/*   Updated: 2024/12/20 14:22:11 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-//TODO fix text after death
 
 void	*philo_life(void *phi)
 {

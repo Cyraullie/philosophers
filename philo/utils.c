@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:35 by cgoldens          #+#    #+#             */
-/*   Updated: 2024/12/19 16:32:04 by cgoldens         ###   ########.fr       */
+/*   Updated: 2024/12/20 14:21:32 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,14 @@ long long	actual_ms(long long ms, long long start)
 }
 void	print(t_philo *phi, char *str)
 {
-	printf("%lld %d %s", actual_ms(timestamp(), phi->data->t_start), phi->id, str);
+	long int	time;
+	
+	pthread_mutex_lock(&(phi->data->print));
+	time = timestamp() - phi->data->t_start;
+	if (!phi->data->stop && time >= 0 \
+			&& time <= INT_MAX && !is_dead(phi, 0))
+		printf("%lld %d %s", timestamp() - phi->data->t_start, phi->id, str);
+	pthread_mutex_unlock(&(phi->data->print));
 }
 
 
