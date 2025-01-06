@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:54:30 by cgoldens          #+#    #+#             */
-/*   Updated: 2024/12/20 14:21:11 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:09:15 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <limits.h>
-
 
 typedef struct s_philo
 {
@@ -49,17 +48,17 @@ typedef struct s_data
 	pthread_mutex_t	dead;
 }	t_data;
 
-long long	timestamp();
-int	data_init(t_data *data, char **ag);
-int	ft_atoi(const char *str);
+long long	timestamp(void);
+int			data_init(t_data *data, char **ag);
+int			ft_atoi(const char *str);
 long long	actual_ms(long long ms, long long start);
-int	ft_isdigit(int c);
-int	philo_init(t_data *data);
-void	print(t_philo *phi, char *str);
-void	philo_eat(t_philo *philo);
-void	ft_usleep(int ms);
-void	take_fork(t_philo *philo);
-void	*check_death(void *phi);
-void	*philo_life(void *phi);
-int	is_dead(t_philo *philo, int nb);
+int			ft_isdigit(int c);
+int			philo_init(t_data *data);
+void		print(t_philo *phi, char *str);
+void		philo_eat(t_philo *philo);
+void		ft_usleep(int ms);
+void		take_fork(t_philo *philo);
+void		*check_death(void *phi);
+void		*philo_life(void *phi);
+int			is_dead(t_philo *philo, int nb);
 #endif

@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:45:50 by cgoldens          #+#    #+#             */
-/*   Updated: 2024/12/19 15:25:28 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/06 11:08:23 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ void	freeall(t_data *data)
 	pthread_mutex_destroy(&data->dead);
 }
 
-
 int	main(int ac, char **ag)
 {
-	t_data data;
-	
+	t_data	data;
+
 	if (ac != 5 && ac != 6)
 		return (0);
 	if (data_init(&data, ag) == 1)

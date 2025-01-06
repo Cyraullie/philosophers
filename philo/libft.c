@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:41 by cgoldens          #+#    #+#             */
-/*   Updated: 2024/12/16 14:23:59 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:10:05 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ int	ft_atoi(const char *str)
 int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
-		return(1);
+		return (1);
 	return (0);
 }

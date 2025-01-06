@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:03 by cgoldens          #+#    #+#             */
-/*   Updated: 2024/12/19 15:27:01 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:09:35 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	data_init(t_data *data, char **ag)
 int	philo_init(t_data *data)
 {
 	int	i;
-	
+
 	data->t_start = timestamp();
 	i = -1;
 	while (++i < data->nb_philo)

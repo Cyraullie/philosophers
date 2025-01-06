@@ -6,16 +6,17 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:35 by cgoldens          #+#    #+#             */
-/*   Updated: 2024/12/20 14:21:32 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:12:58 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long	timestamp()
+long long	timestamp(void)
 {
-	struct timeval tv;
-    gettimeofday(&tv, NULL);
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
 	return ((long long)tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
@@ -23,10 +24,11 @@ long long	actual_ms(long long ms, long long start)
 {
 	return (ms - start);
 }
+
 void	print(t_philo *phi, char *str)
 {
 	long int	time;
-	
+
 	pthread_mutex_lock(&(phi->data->print));
 	time = timestamp() - phi->data->t_start;
 	if (!phi->data->stop && time >= 0 \
@@ -34,7 +36,6 @@ void	print(t_philo *phi, char *str)
 		printf("%lld %d %s", timestamp() - phi->data->t_start, phi->id, str);
 	pthread_mutex_unlock(&(phi->data->print));
 }
-
 
 void	ft_usleep(int ms)
 {
