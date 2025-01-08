@@ -1,3 +1,4 @@
 *.o
 *.a
 philo/philo
+philo/philo.out
