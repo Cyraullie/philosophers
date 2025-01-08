@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:40:29 by cgoldens          #+#    #+#             */
-/*   Updated: 2024/12/20 14:22:11 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:09:59 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,23 @@ void	*philo_life(void *phi)
 	while (!is_dead(philo, 0))
 	{
 		pthread_create(&t, NULL, check_death, phi);
+		philo_think(philo);
 		take_fork(philo);
 		philo_eat(philo);
-		pthread_detach(t);
 		if (philo->c_eat == philo->data->n_eat)
 		{
 			pthread_mutex_lock(&philo->data->m_stop);
 			if (++philo->data->philo_eat == philo->data->nb_philo)
 			{
+				//printf("tout le monde a fini de manger %d _ %d\n", philo->data->philo_eat, philo->data->nb_philo);
 				pthread_mutex_unlock(&philo->data->m_stop);
 				is_dead(philo, 2);
 			}
 			pthread_mutex_unlock(&philo->data->m_stop);
 			return (NULL);
 		}
+
+		pthread_detach(t);
 	}
 	return (NULL);
 }
@@ -87,5 +90,9 @@ void	philo_eat(t_philo *philo)
 	pthread_mutex_unlock(&(philo->fork_l));
 	print(philo, " is sleeping\n");
 	ft_usleep(philo->data->t_sleep);
+}
+
+void	philo_think(t_philo *philo)
+{
 	print(philo, " is thinking\n");
 }
