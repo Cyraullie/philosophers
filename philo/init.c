@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:03 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/06 14:09:35 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/08 17:17:00 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	philo_init(t_data *data)
 		pthread_mutex_init(&(data->philo[i].fork_l), NULL);
 		if (i == data->nb_philo - 1)
 			data->philo[i].fork_r = &data->philo[0].fork_l;
-		else
+		else //TODO faire sans un putain d'enfoire de  poiteur ?
 			data->philo[i].fork_r = &data->philo[i + 1].fork_l;
 		if (pthread_create(&data->philo[i].thread, NULL, \
 				&philo_life, &(data->philo[i])) != 0)

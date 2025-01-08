@@ -6,29 +6,29 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:40:29 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/08 16:52:33 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/08 17:14:45 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-//TODO fix data race
+//TODO fix data race (valgrind --tool=helgrind ./philo 2 500 250 250 5 > philo.out)
 void	*philo_life(void *phi)
 {
 	t_philo		*philo;
-	pthread_t	t;
+	pthread_t death_checker;
 
 	philo = (t_philo *)phi;
 	if (philo->id % 2 == 0)
 		usleep(philo->data->t_eat / 10);
+    pthread_create(&death_checker, NULL, check_death, phi);
 	while (!is_dead(philo, 0))
 	{
-		pthread_create(&t, NULL, check_death, phi);
 		philo_think(philo);
 		take_fork(philo);
 		philo_eat(philo);
 		check_eat(phi);
-		pthread_detach(t);
 	}
+	pthread_join(death_checker, NULL);
 	return (NULL);
 }
 
