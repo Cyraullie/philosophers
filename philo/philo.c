@@ -6,12 +6,12 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:40:29 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/08 16:09:59 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:52:33 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
+//TODO fix data race
 void	*philo_life(void *phi)
 {
 	t_philo		*philo;
@@ -26,22 +26,29 @@ void	*philo_life(void *phi)
 		philo_think(philo);
 		take_fork(philo);
 		philo_eat(philo);
-		if (philo->c_eat == philo->data->n_eat)
-		{
-			pthread_mutex_lock(&philo->data->m_stop);
-			if (++philo->data->philo_eat == philo->data->nb_philo)
-			{
-				//printf("tout le monde a fini de manger %d _ %d\n", philo->data->philo_eat, philo->data->nb_philo);
-				pthread_mutex_unlock(&philo->data->m_stop);
-				is_dead(philo, 2);
-			}
-			pthread_mutex_unlock(&philo->data->m_stop);
-			return (NULL);
-		}
-
+		check_eat(phi);
 		pthread_detach(t);
 	}
 	return (NULL);
+}
+
+void	check_eat(void *phi)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)phi;
+	if (philo->c_eat == philo->data->n_eat)
+	{
+		pthread_mutex_lock(&philo->data->m_stop);
+		if (++philo->data->philo_eat == philo->data->nb_philo)
+		{
+			pthread_mutex_unlock(&philo->data->m_stop);
+			is_dead(philo, 2);
+		}
+		pthread_mutex_unlock(&philo->data->m_stop);
+		return ;
+	}
+	return ;
 }
 
 void	*check_death(void *phi)
@@ -90,9 +97,4 @@ void	philo_eat(t_philo *philo)
 	pthread_mutex_unlock(&(philo->fork_l));
 	print(philo, " is sleeping\n");
 	ft_usleep(philo->data->t_sleep);
-}
-
-void	philo_think(t_philo *philo)
-{
-	print(philo, " is thinking\n");
 }

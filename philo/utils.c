@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:35 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/06 14:12:58 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:34:49 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,9 @@ int	is_dead(t_philo *philo, int nb)
 	}
 	pthread_mutex_unlock(&philo->data->dead);
 	return (0);
+}
+
+void	philo_think(t_philo *philo)
+{
+	print(philo, " is thinking\n");
 }
