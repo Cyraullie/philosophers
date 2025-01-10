@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:40:29 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/08 17:14:45 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:55:13 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ void	check_eat(void *phi)
 	{
 		pthread_mutex_lock(&philo->data->m_stop);
 		if (++philo->data->philo_eat == philo->data->nb_philo)
-		{
-			pthread_mutex_unlock(&philo->data->m_stop);
 			is_dead(philo, 2);
-		}
 		pthread_mutex_unlock(&philo->data->m_stop);
 		return ;
 	}
@@ -62,9 +59,7 @@ void	*check_death(void *phi)
 	if (!is_dead(philo, 0) && timestamp() - \
 			philo->last_eat >= (long)(philo->data->t_die))
 	{
-		pthread_mutex_unlock(&philo->data->m_eat);
-		pthread_mutex_unlock(&philo->data->m_stop);
-		print(philo, " died\n");
+		print(philo, " died");
 		is_dead(philo, 1);
 	}
 	pthread_mutex_unlock(&philo->data->m_eat);
@@ -74,20 +69,25 @@ void	*check_death(void *phi)
 
 void	take_fork(t_philo *philo)
 {
-	pthread_mutex_lock(&(philo->fork_l));
-	print(philo, " has taken a fork\n");
-	if (philo->data->nb_philo == 1)
-	{
-		ft_usleep(philo->data->t_die * 2);
-		return ;
+	if (philo->id % 2 == 0)
+	{			
+		pthread_mutex_lock(&philo->fork_l);
+		print(philo, " has taken a fork");
+		pthread_mutex_lock(philo->fork_r);
+		print(philo, " has taken a fork");
 	}
-	pthread_mutex_lock((philo->fork_r));
-	print(philo, " has taken a fork\n");
+	else
+	{
+		pthread_mutex_lock(philo->fork_r);
+		print(philo, " has taken a fork");
+		pthread_mutex_lock(&philo->fork_l);
+		print(philo, " has taken a fork");
+	}
 }
 
 void	philo_eat(t_philo *philo)
 {
-	print(philo, " is eating\n");
+	print(philo, " is eating");
 	pthread_mutex_lock(&(philo->data->m_eat));
 	philo->last_eat = timestamp();
 	philo->c_eat++;
@@ -95,6 +95,6 @@ void	philo_eat(t_philo *philo)
 	ft_usleep(philo->data->t_eat);
 	pthread_mutex_unlock((philo->fork_r));
 	pthread_mutex_unlock(&(philo->fork_l));
-	print(philo, " is sleeping\n");
+	print(philo, " is sleeping");
 	ft_usleep(philo->data->t_sleep);
 }
