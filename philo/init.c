@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:03 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/08 17:17:00 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:49:35 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,9 @@ int	philo_init(t_data *data)
 	{
 		data->philo[i].id = i + 1;
 		data->philo[i].last_eat = 0;
-		data->philo[i].fork_r = NULL;
 		data->philo[i].data = data;
 		data->philo[i].c_eat = 0;
-		pthread_mutex_init(&(data->philo[i].fork_l), NULL);
-		if (i == data->nb_philo - 1)
-			data->philo[i].fork_r = &data->philo[0].fork_l;
-		else //TODO faire sans un putain d'enfoire de  poiteur ?
-			data->philo[i].fork_r = &data->philo[i + 1].fork_l;
+		add_fork(data, i);
 		if (pthread_create(&data->philo[i].thread, NULL, \
 				&philo_life, &(data->philo[i])) != 0)
 			return (-1);
@@ -89,4 +84,13 @@ int	philo_init(t_data *data)
 		if (pthread_join(data->philo[i].thread, NULL) != 0)
 			return (-1);
 	return (0);
+}
+void	add_fork(t_data *data, int i)
+{
+	data->philo[i].fork_r = NULL;
+	pthread_mutex_init(&(data->philo[i].fork_l), NULL);
+	if (i == data->nb_philo - 1)
+		data->philo[i].fork_r = &data->philo[0].fork_l;
+	else
+		data->philo[i].fork_r = &data->philo[i + 1].fork_l;
 }
