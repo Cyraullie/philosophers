@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:45:50 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/08 17:08:15 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:47:55 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,18 @@ void	freeall(t_data *data)
 {
 	int	i;
 
-	i = -1;
-	while (++i < data->nb_philo)
-		pthread_mutex_destroy(&data->philo[i].fork_l);
-	free(data->philo);
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		//pthread_mutex_destroy(&data->philo[i].fork_l);
+		i++;
+	}
+
+	/*free(data->philo);
 	pthread_mutex_destroy(&data->print);
 	pthread_mutex_destroy(&data->m_stop);
 	pthread_mutex_destroy(&data->m_eat);
-	pthread_mutex_destroy(&data->dead);
+	pthread_mutex_destroy(&data->dead);*/
 }
 
 int	main(int ac, char **ag)
