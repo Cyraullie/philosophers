@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:35 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/10 14:55:04 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:21:24 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	print(t_philo *phi, char *str)
 	time = timestamp() - phi->data->t_start;
 	if (!phi->data->stop && time >= 0 \
 			&& time <= INT_MAX && !is_dead(phi, 0))
-		printf("%lld %d %s\n", timestamp() - phi->data->t_start, phi->id, str);
+		printf("%ld %d %s\n", time, phi->id, str);
 	pthread_mutex_unlock(&(phi->data->print));
 }
 
