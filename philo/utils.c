@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:35 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/13 13:21:24 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:35:18 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,14 @@ void	ft_usleep(int ms)
 
 int	is_dead(t_philo *philo, int nb)
 {
+	int	dead;
+
 	pthread_mutex_lock(&philo->data->dead);
 	if (nb)
 		philo->data->stop = 1;
-	if (philo->data->stop)
-	{
-		pthread_mutex_unlock(&philo->data->dead);
-		return (1);
-	}
+	dead = philo->data->stop;
 	pthread_mutex_unlock(&philo->data->dead);
-	return (0);
+	return (dead);
 }
 
 void	philo_think(t_philo *philo)

@@ -6,21 +6,21 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:40:29 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/10 14:55:13 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:32:19 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-//TODO fix data race (valgrind --tool=helgrind ./philo 2 500 250 250 5 > philo.out)
+
 void	*philo_life(void *phi)
 {
 	t_philo		*philo;
-	pthread_t death_checker;
+	pthread_t	death_checker;
 
 	philo = (t_philo *)phi;
 	if (philo->id % 2 == 0)
 		usleep(philo->data->t_eat / 10);
-    pthread_create(&death_checker, NULL, check_death, phi);
+    pthread_create(&death_checker, NULL, check_death, philo);
 	while (!is_dead(philo, 0))
 	{
 		philo_think(philo);
@@ -93,7 +93,7 @@ void	philo_eat(t_philo *philo)
 	philo->c_eat++;
 	pthread_mutex_unlock(&(philo->data->m_eat));
 	ft_usleep(philo->data->t_eat);
-	pthread_mutex_unlock((philo->fork_r));
+	pthread_mutex_unlock(philo->fork_r);
 	pthread_mutex_unlock(&(philo->fork_l));
 	print(philo, " is sleeping");
 	ft_usleep(philo->data->t_sleep);
