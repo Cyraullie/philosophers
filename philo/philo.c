@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:40:29 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/13 14:32:19 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:57:02 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	*check_death(void *phi)
 
 	philo = (t_philo *)phi;
 	ft_usleep(philo->data->t_die + 1);
-	pthread_mutex_lock(&philo->data->m_eat);
 	pthread_mutex_lock(&philo->data->m_stop);
+	pthread_mutex_lock(&philo->data->m_eat);
 	if (!is_dead(philo, 0) && timestamp() - \
 			philo->last_eat >= (long)(philo->data->t_die))
 	{
@@ -71,7 +71,7 @@ void	take_fork(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{			
-		pthread_mutex_lock(&philo->fork_l);
+		pthread_mutex_lock(&(philo->fork_l));
 		print(philo, " has taken a fork");
 		pthread_mutex_lock(philo->fork_r);
 		print(philo, " has taken a fork");
@@ -80,7 +80,7 @@ void	take_fork(t_philo *philo)
 	{
 		pthread_mutex_lock(philo->fork_r);
 		print(philo, " has taken a fork");
-		pthread_mutex_lock(&philo->fork_l);
+		pthread_mutex_lock(&(philo->fork_l));
 		print(philo, " has taken a fork");
 	}
 }

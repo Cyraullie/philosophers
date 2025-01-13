@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:45:50 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/13 14:33:57 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:04:45 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,26 @@ void	freeall(t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
+		//TODO toujours un putain de destroy failed
+		pthread_mutex_unlock(&data->philo[i].fork_l);
+		//pthread_mutex_unlock(data->philo[i].fork_r);
 		pthread_mutex_destroy(&data->philo[i].fork_l);
 		i++;
 	}
-	pthread_mutex_destroy(&data->print);
+	i = 0;
+	while (i < data->nb_philo)
+	{
+			
+		free(&data->philo[i].fork_r);
+		i++;
+	}
+	pthread_mutex_unlock(&data->m_stop);
+	pthread_mutex_unlock(&data->m_eat);
+	pthread_mutex_unlock(&data->dead);
 	pthread_mutex_destroy(&data->m_stop);
 	pthread_mutex_destroy(&data->m_eat);
 	pthread_mutex_destroy(&data->dead);
+	pthread_mutex_destroy(&data->print);
 	free(data->philo);
 }
 
