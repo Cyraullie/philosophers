@@ -18,7 +18,8 @@ RM = rm -rf
 
 SRCS = main.c libft.c utils.c init.c philo.c
 
-OBJS = $(SRCS:.c=.o)
+OBJ_DIR = temp
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 GREEN = \033[1;32m
 CYAN = \033[1;36m
@@ -39,7 +40,10 @@ header:
 	@echo "BY CGOLDENS"
 	@echo "$(RESET)"
 
-%.o: %.c
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -I ./ -c -o $@ $<
 
 $(NAME): $(OBJS)
@@ -47,7 +51,7 @@ $(NAME): $(OBJS)
 	@echo "$(CYAN)Build completed!$(RESET)"
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
 
 fclean: clean
 	$(RM) $(NAME)
