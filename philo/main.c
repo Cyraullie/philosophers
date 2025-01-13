@@ -20,7 +20,9 @@ void	freeall(t_data *data)
 	while (i < data->nb_philo)
 	{
 		//TODO toujours un putain de destroy failed
-		pthread_mutex_unlock(&data->philo[i].fork_l);
+		//TODO tester le code si dessous
+		if (pthread_mutex_unlock(&data->philo[i].fork_l))
+			printf("test unlock n°%d\n", i);
 		//pthread_mutex_unlock(data->philo[i].fork_r);
 		pthread_mutex_destroy(&data->philo[i].fork_l);
 		i++;
