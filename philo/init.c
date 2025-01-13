@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:03 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/13 14:52:02 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:22:30 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	philo_init(t_data *data)
 }
 void	add_fork(t_data *data, int i)
 {
-	data->philo[i].fork_r = malloc(sizeof(pthread_mutex_t *));
 	pthread_mutex_init(&(data->philo[i].fork_l), NULL);
 	if (i == data->nb_philo - 1)
 		data->philo[i].fork_r = &data->philo[0].fork_l;

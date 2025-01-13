@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:35 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/13 14:45:54 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:29:06 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,16 @@ long long	actual_ms(long long ms, long long start)
 void	print(t_philo *phi, char *str)
 {
 	long int	time;
-
-	pthread_mutex_lock(&(phi->data->m_stop));
+	int			dead;
+	//TODO data race in this
+	pthread_mutex_lock(&(phi->data->print));
+	dead = phi->data->stop || is_dead(phi, 0);
 	time = timestamp() - phi->data->t_start;
-	if (!phi->data->stop && time >= 0 \
-			&& time <= INT_MAX && !is_dead(phi, 0))
+	if (!dead)
 	{
-		pthread_mutex_lock(&(phi->data->print));
 		printf("%ld %d %s\n", time, phi->id, str);
-		pthread_mutex_unlock(&(phi->data->print));
 	}
-	pthread_mutex_unlock(&(phi->data->m_stop));
+	pthread_mutex_unlock(&(phi->data->print));
 }
 
 void	ft_usleep(int ms)
@@ -52,14 +51,16 @@ void	ft_usleep(int ms)
 
 int	is_dead(t_philo *philo, int nb)
 {
-	int	dead;
-
 	pthread_mutex_lock(&philo->data->dead);
 	if (nb)
 		philo->data->stop = 1;
-	dead = philo->data->stop;
+	if (philo->data->stop)
+	{
+		pthread_mutex_unlock(&philo->data->dead);
+		return (1);
+	}
 	pthread_mutex_unlock(&philo->data->dead);
-	return (dead);
+	return (0);
 }
 
 void	philo_think(t_philo *philo)
