@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:03 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/14 12:02:13 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:47:35 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	data_init(t_data *data, char **ag)
 	data->t_die = ft_atoi(ag[2]);
 	data->t_eat = ft_atoi(ag[3]);
 	data->t_sleep = ft_atoi(ag[4]);
+	data->philo_eat = 0;
 	if (ag[5])
 		data->n_eat = ft_atoi(ag[5]);
 	else
@@ -85,9 +86,10 @@ int	philo_init(t_data *data)
 			return (-1);
 	return (0);
 }
+
 void	add_fork(t_data *data, int i)
 {
-	data->philo[i].fork_r = malloc(sizeof(pthread_mutex_t *));
+	data->philo[i].fork_r = NULL;
 	pthread_mutex_init(&(data->philo[i].fork_l), NULL);
 	if (i == data->nb_philo - 1)
 		data->philo[i].fork_r = &data->philo[0].fork_l;

@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:35 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/13 16:29:06 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:41:17 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ void	print(t_philo *phi, char *str)
 {
 	long int	time;
 	int			dead;
-	//TODO data race in this
-	pthread_mutex_lock(&(phi->data->print));
-	dead = phi->data->stop || is_dead(phi, 0);
+
+	pthread_mutex_lock(&(phi->data->m_stop));
+	dead = (phi->data->stop || is_dead(phi, 0));
 	time = timestamp() - phi->data->t_start;
+	pthread_mutex_unlock(&(phi->data->m_stop));
+	pthread_mutex_lock(&(phi->data->print));
 	if (!dead)
 	{
 		printf("%ld %d %s\n", time, phi->id, str);
@@ -61,9 +63,4 @@ int	is_dead(t_philo *philo, int nb)
 	}
 	pthread_mutex_unlock(&philo->data->dead);
 	return (0);
-}
-
-void	philo_think(t_philo *philo)
-{
-	print(philo, " is thinking");
 }

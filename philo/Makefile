@@ -6,7 +6,7 @@
 #    By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/08 11:31:20 by cgoldens          #+#    #+#              #
-#    Updated: 2025/01/08 16:18:44 by cgoldens         ###   ########.fr        #
+#    Updated: 2025/01/14 13:41:27 by cgoldens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -rf
 
-SRCS = main.c libft.c utils.c init.c philo.c
+SRCS = main.c libft.c utils.c init.c philo.c philo2.c
 
 OBJ_DIR = temp
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

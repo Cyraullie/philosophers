@@ -6,24 +6,11 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:45:50 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/14 12:01:16 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:39:59 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	check_mutex_state(pthread_mutex_t *mutex, const char *msg)
-{
-	if (pthread_mutex_unlock(mutex) == 0)
-	{
-		printf("[INFO] Mutex %s is not locked. No unlock was needed.\n", msg);
-		//pthread_mutex_lock(mutex); // On restaure l'état verrouillé
-	}
-	else
-	{
-		printf("[WARNING] Mutex %s was locked.\n", msg);
-	}
-}
 
 void	freeall(t_data *data)
 {
@@ -53,7 +40,7 @@ int	main(int ac, char **ag)
 		free(data.philo);
 		return (0);
 	}
-	printf("init %d\n",philo_init(&data));
+	philo_init(&data);
 	freeall(&data);
 	return (0);
 }
