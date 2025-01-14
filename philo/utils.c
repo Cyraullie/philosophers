@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:35 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/14 13:41:17 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:55:31 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	print(t_philo *phi, char *str)
 	long int	time;
 	int			dead;
 
-	pthread_mutex_lock(&(phi->data->m_stop));
-	dead = (phi->data->stop || is_dead(phi, 0));
+	pthread_mutex_lock(&(phi->data->dead));
+	dead = phi->data->stop;
 	time = timestamp() - phi->data->t_start;
-	pthread_mutex_unlock(&(phi->data->m_stop));
+	pthread_mutex_unlock(&(phi->data->dead));
 	pthread_mutex_lock(&(phi->data->print));
 	if (!dead)
 	{

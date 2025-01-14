@@ -6,7 +6,7 @@
 #    By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/08 11:31:20 by cgoldens          #+#    #+#              #
-#    Updated: 2025/01/14 13:41:27 by cgoldens         ###   ########.fr        #
+#    Updated: 2025/01/14 13:54:05 by cgoldens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,10 +51,12 @@ $(NAME): $(OBJS)
 	@echo "$(CYAN)Build completed!$(RESET)"
 
 clean:
-	$(RM) $(OBJ_DIR)
+	@$(RM) $(OBJ_DIR)
+	@echo "$(CYAN)Clean completed!$(RESET)"
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
+	@echo "$(CYAN)Full clean completed!$(RESET)"
 
 
 re: fclean all
