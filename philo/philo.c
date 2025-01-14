@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:40:29 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/14 13:42:09 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:04:25 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	take_fork(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{			
-		pthread_mutex_lock(&(philo->fork_l));
+		pthread_mutex_lock(philo->fork_l);
 		print(philo, " has taken a fork");
 		pthread_mutex_lock(philo->fork_r);
 		print(philo, " has taken a fork");
@@ -80,7 +80,7 @@ void	take_fork(t_philo *philo)
 	{
 		pthread_mutex_lock(philo->fork_r);
 		print(philo, " has taken a fork");
-		pthread_mutex_lock(&(philo->fork_l));
+		pthread_mutex_lock(philo->fork_l);
 		print(philo, " has taken a fork");
 	}
 }
@@ -91,10 +91,10 @@ void	philo_eat(t_philo *philo)
 	pthread_mutex_lock(&(philo->data->m_eat));
 	philo->last_eat = timestamp();
 	philo->c_eat++;
-	pthread_mutex_unlock(&(philo->data->m_eat));
 	ft_usleep(philo->data->t_eat);
 	pthread_mutex_unlock(philo->fork_r);
-	pthread_mutex_unlock(&(philo->fork_l));
+	pthread_mutex_unlock(philo->fork_l);
+	pthread_mutex_unlock(&(philo->data->m_eat));
 	print(philo, " is sleeping");
 	ft_usleep(philo->data->t_sleep);
 }

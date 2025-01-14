@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:54:30 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/13 16:22:25 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:11:48 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_philo
 	struct s_data	*data;
 	int				c_eat;
 	pthread_mutex_t	*fork_r;
-	pthread_mutex_t	fork_l;
+	pthread_mutex_t	*fork_l;
 }	t_philo;
 
 typedef struct s_data
@@ -48,21 +48,21 @@ typedef struct s_data
 	pthread_mutex_t	dead;
 }	t_data;
 
-long long	timestamp(void);
-int			data_init(t_data *data, char **ag);
-int			ft_atoi(const char *str);
-long long	actual_ms(long long ms, long long start);
-int			ft_isdigit(int c);
-int			philo_init(t_data *data);
-void		print(t_philo *phi, char *str);
-void		philo_eat(t_philo *philo);
-void		ft_usleep(int ms);
-void		take_fork(t_philo *philo);
-void		*check_death(void *phi);
-void		*philo_life(void *phi);
-int			is_dead(t_philo *philo, int nb);
-void		philo_think(t_philo *philo);
-void		check_eat(void *phi);
-void		add_fork(t_data *data, int i);
-void		freeall(t_data *data);
+long long		timestamp(void);
+int				data_init(t_data *data, char **ag);
+int				ft_atoi(const char *str);
+long long		actual_ms(long long ms, long long start);
+int				ft_isdigit(int c);
+int				philo_init(t_data *data, pthread_mutex_t *f);
+void			print(t_philo *phi, char *str);
+void			philo_eat(t_philo *philo);
+void			ft_usleep(int ms);
+void			take_fork(t_philo *philo);
+void			*check_death(void *phi);
+void			*philo_life(void *phi);
+int				is_dead(t_philo *philo, int nb);
+void			philo_think(t_philo *philo);
+void			check_eat(void *phi);
+pthread_mutex_t	*add_fork(int nb);
+void			freeall(t_data *data, pthread_mutex_t **f);
 #endif
