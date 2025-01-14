@@ -6,37 +6,35 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:45:50 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/13 15:04:45 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:01:16 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	check_mutex_state(pthread_mutex_t *mutex, const char *msg)
+{
+	if (pthread_mutex_unlock(mutex) == 0)
+	{
+		printf("[INFO] Mutex %s is not locked. No unlock was needed.\n", msg);
+		//pthread_mutex_lock(mutex); // On restaure l'état verrouillé
+	}
+	else
+	{
+		printf("[WARNING] Mutex %s was locked.\n", msg);
+	}
+}
 
 void	freeall(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (i < data->nb_philo)
+	while (i < data->nb_philo - 1)
 	{
-		//TODO toujours un putain de destroy failed
-		//TODO tester le code si dessous
-		if (pthread_mutex_unlock(&data->philo[i].fork_l))
-			printf("test unlock n°%d\n", i);
-		//pthread_mutex_unlock(data->philo[i].fork_r);
 		pthread_mutex_destroy(&data->philo[i].fork_l);
 		i++;
 	}
-	i = 0;
-	while (i < data->nb_philo)
-	{
-			
-		free(&data->philo[i].fork_r);
-		i++;
-	}
-	pthread_mutex_unlock(&data->m_stop);
-	pthread_mutex_unlock(&data->m_eat);
-	pthread_mutex_unlock(&data->dead);
 	pthread_mutex_destroy(&data->m_stop);
 	pthread_mutex_destroy(&data->m_eat);
 	pthread_mutex_destroy(&data->dead);
@@ -55,7 +53,7 @@ int	main(int ac, char **ag)
 		free(data.philo);
 		return (0);
 	}
-	philo_init(&data);
+	printf("init %d\n",philo_init(&data));
 	freeall(&data);
 	return (0);
 }
