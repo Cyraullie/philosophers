@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:35 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/15 13:51:03 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:46:57 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ void	print(t_philo *phi, char *str)
 	int			dead;
 
 	pthread_mutex_lock(&(phi->data->g_stop));
-	dead = (phi->data->stop || is_dead(phi, 0));
+	dead = is_dead(phi, 0);
 	pthread_mutex_unlock(&(phi->data->g_stop));
+	pthread_mutex_lock(&(phi->data->print));
 	if (!dead)
 	{
-		pthread_mutex_lock(&(phi->data->print));
 		printf("%d %d %s\n", actual_ms(timestamp(), \
 		phi->data->t_start), phi->id, str);
-		pthread_mutex_unlock(&(phi->data->print));
 	}
+	pthread_mutex_unlock(&(phi->data->print));
 }
 
 void	ft_usleep(int ms)

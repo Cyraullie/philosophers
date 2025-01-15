@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:54:30 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/15 13:39:45 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:27:23 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void			*check_death(void *phi);
 void			*philo_life(void *phi);
 int				is_dead(t_philo *philo, int nb);
 void			philo_think(t_philo *philo);
-void			check_eat(void *phi);
+void			check_eat(t_philo *phi);
 pthread_mutex_t	*add_fork(int nb);
 void			freeall(t_data *data, pthread_mutex_t **f);
 #endif

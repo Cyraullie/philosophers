@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:40:29 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/15 13:50:34 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:35:38 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,14 @@ void	*philo_life(void *phi)
 	return (NULL);
 }
 
-void	check_eat(void *phi)
+void	check_eat(t_philo *phi)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *)phi;
-	if (philo->c_eat == philo->data->n_eat)
+	if (phi->c_eat == phi->data->n_eat)
 	{
-		pthread_mutex_lock(&philo->data->m_stop);
-		if (++philo->data->philo_eat == philo->data->nb_philo)
-			is_dead(philo, 2);
-		pthread_mutex_unlock(&philo->data->m_stop);
+		pthread_mutex_lock(&phi->data->m_stop);
+		if (++phi->data->philo_eat == phi->data->nb_philo)
+			is_dead(phi, 2);
+		pthread_mutex_unlock(&phi->data->m_stop);
 		return ;
 	}
 	return ;
@@ -70,6 +67,16 @@ void	*check_death(void *phi)
 
 void	take_fork(t_philo *philo)
 {
+	if (philo->data->nb_philo == 1)
+	{
+		pthread_mutex_lock(philo->fork_l);
+		print(philo, " has taken a fork");
+		ft_usleep(philo->data->t_die);
+		print(philo, " died");
+		pthread_mutex_unlock(philo->fork_l);
+		is_dead(philo, 1);
+		return ;
+	}
 	if (philo->id % 2 == 0)
 	{			
 		pthread_mutex_lock(philo->fork_l);
