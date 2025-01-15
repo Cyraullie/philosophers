@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:35 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/15 14:46:57 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/15 17:06:45 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,4 @@ void	ft_usleep(int ms)
 	time = timestamp();
 	while (timestamp() - time < ms)
 		usleep(ms / 10);
-}
-
-int	is_dead(t_philo *philo, int nb)
-{
-	pthread_mutex_lock(&philo->data->dead);
-	if (nb)
-		philo->data->stop = 1;
-	if (philo->data->stop)
-	{
-		pthread_mutex_unlock(&philo->data->dead);
-		return (1);
-	}
-	pthread_mutex_unlock(&philo->data->dead);
-	return (0);
 }

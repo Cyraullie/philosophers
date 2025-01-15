@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:03 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/15 16:52:45 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/15 17:44:16 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	data_init(t_data *data, char **ag)
 	pthread_mutex_init(&data->m_stop, NULL);
 	pthread_mutex_init(&data->m_eat, NULL);
 	pthread_mutex_init(&data->dead, NULL);
+	pthread_mutex_init(&data->eat_done, NULL);
 	pthread_mutex_init(&data->g_stop, NULL);
 	data->stop = 0;
 	data->nb_philo = ft_atoi(ag[1]);
