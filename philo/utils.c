@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:35 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/14 13:55:31 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:40:56 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,28 @@ long long	timestamp(void)
 	return ((long long)tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-long long	actual_ms(long long ms, long long start)
+unsigned int	actual_ms(long long ms, long long start)
 {
-	return (ms - start);
+	unsigned int	time;
+
+	time = ms - start;
+	return (time);
 }
 
 void	print(t_philo *phi, char *str)
 {
-	long int	time;
 	int			dead;
 
-	pthread_mutex_lock(&(phi->data->dead));
-	dead = phi->data->stop;
-	time = timestamp() - phi->data->t_start;
-	pthread_mutex_unlock(&(phi->data->dead));
-	pthread_mutex_lock(&(phi->data->print));
+	pthread_mutex_lock(&(phi->data->g_stop));
+	is_dead(phi, 0);
+	dead = (phi->data->stop);
+	pthread_mutex_unlock(&(phi->data->g_stop));
 	if (!dead)
 	{
-		printf("%ld %d %s\n", time, phi->id, str);
+		pthread_mutex_lock(&(phi->data->print));
+		printf("%d %d %s\n", actual_ms(timestamp(), phi->data->t_start), phi->id, str);
+		pthread_mutex_unlock(&(phi->data->print));
 	}
-	pthread_mutex_unlock(&(phi->data->print));
 }
 
 void	ft_usleep(int ms)

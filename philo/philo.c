@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:40:29 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/14 15:04:25 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:42:14 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	*check_death(void *phi)
 	ft_usleep(philo->data->t_die + 1);
 	pthread_mutex_lock(&philo->data->m_stop);
 	pthread_mutex_lock(&philo->data->m_eat);
-	if (!is_dead(philo, 0) && timestamp() - \
-			philo->last_eat >= (long)(philo->data->t_die))
+	if (!is_dead(philo, 0)
+		&& philo->last_eat >= (long)(philo->data->t_die))
 	{
 		print(philo, " died");
 		is_dead(philo, 1);
@@ -89,12 +89,12 @@ void	philo_eat(t_philo *philo)
 {
 	print(philo, " is eating");
 	pthread_mutex_lock(&(philo->data->m_eat));
-	philo->last_eat = timestamp();
+	philo->last_eat = timestamp() - philo->data->t_start;
 	philo->c_eat++;
+	pthread_mutex_unlock(&(philo->data->m_eat));
 	ft_usleep(philo->data->t_eat);
 	pthread_mutex_unlock(philo->fork_r);
 	pthread_mutex_unlock(philo->fork_l);
-	pthread_mutex_unlock(&(philo->data->m_eat));
 	print(philo, " is sleeping");
 	ft_usleep(philo->data->t_sleep);
 }

@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:54:30 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/14 16:11:48 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:39:45 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,37 @@
 
 typedef struct s_philo
 {
-	int				id;
-	pthread_t		thread;
-	long int		last_eat;
-	struct s_data	*data;
-	int				c_eat;
-	pthread_mutex_t	*fork_r;
-	pthread_mutex_t	*fork_l;
+	int					id;
+	pthread_t			thread;
+	unsigned int		last_eat;
+	struct s_data		*data;
+	int					c_eat;
+	pthread_mutex_t		*fork_r;
+	pthread_mutex_t		*fork_l;
 }	t_philo;
 
 typedef struct s_data
 {
 	int				philo_eat;
 	int				nb_philo;
-	int				t_die;
-	int				t_eat;
-	int				t_sleep;
+	unsigned int	t_die;
+	unsigned int	t_eat;
+	unsigned int	t_sleep;
 	int				n_eat;
-	long int		t_start;
+	unsigned int	t_start;
 	int				stop;
 	t_philo			*philo;
 	pthread_mutex_t	print;
 	pthread_mutex_t	m_stop;
 	pthread_mutex_t	m_eat;
 	pthread_mutex_t	dead;
+	pthread_mutex_t	g_stop;
 }	t_data;
 
 long long		timestamp(void);
+unsigned int	actual_ms(long long ms, long long start);
 int				data_init(t_data *data, char **ag);
 int				ft_atoi(const char *str);
-long long		actual_ms(long long ms, long long start);
 int				ft_isdigit(int c);
 int				philo_init(t_data *data, pthread_mutex_t *f);
 void			print(t_philo *phi, char *str);
