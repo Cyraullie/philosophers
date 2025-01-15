@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:45:50 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/15 14:47:13 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:47:10 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ int	main(int ac, char **ag)
 	t_data			data;
 	pthread_mutex_t	*f;
 
-	if (ac != 5 && ac != 6)
+	if ((ac != 5 && ac != 6) || check_arg(ag))
+	{
+		print_msg_arg();
 		return (0);
+	}
 	if (data_init(&data, ag) == 1)
 	{
 		free(data.philo);

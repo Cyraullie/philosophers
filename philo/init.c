@@ -6,33 +6,11 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:03 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/15 13:51:55 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:52:45 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	check_num(char **str)
-{
-	int	i;
-	int	j;
-
-	if (ft_atoi(str[1]) < 1)
-		return (1);
-	i = 1;
-	while (str[i])
-	{
-		j = 0;
-		while (str[i][j])
-		{
-			if (!ft_isdigit(str[i][j]))
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
 
 int	data_init(t_data *data, char **ag)
 {
@@ -43,11 +21,6 @@ int	data_init(t_data *data, char **ag)
 	pthread_mutex_init(&data->g_stop, NULL);
 	data->stop = 0;
 	data->nb_philo = ft_atoi(ag[1]);
-	if (check_num(ag))
-	{
-		printf("Invalid Arguments\n");
-		return (1);
-	}
 	data->t_die = ft_atoi(ag[2]);
 	data->t_eat = ft_atoi(ag[3]);
 	data->t_sleep = ft_atoi(ag[4]);
