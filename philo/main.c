@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:45:50 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/14 16:12:02 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:50:49 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	freeall(t_data *data, pthread_mutex_t **f)
 	free(data->philo);
 	free(*f);
 }
+
 int	alloc(t_data *data, pthread_mutex_t **f)
 {
 	*f = add_fork(data->nb_philo);
@@ -41,7 +42,7 @@ int	alloc(t_data *data, pthread_mutex_t **f)
 int	main(int ac, char **ag)
 {
 	t_data			data;
-	pthread_mutex_t *f;
+	pthread_mutex_t	*f;
 
 	if (ac != 5 && ac != 6)
 		return (0);

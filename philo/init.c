@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:03 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/15 11:26:46 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:51:55 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ int	monitor(t_data *data)
 	i = -1;
 	while (++i < data->nb_philo)
 	{
-	 	if (pthread_create(&data->philo[i].thread, NULL, 
-	 			&philo_life, &(data->philo[i])) != 0)
-	 		return (-1);
+		if (pthread_create(&data->philo[i].thread, NULL,
+				&philo_life, &(data->philo[i])) != 0)
+			return (-1);
 	}
 	i = -1;
 	while (++i < data->nb_philo)
-	if (pthread_join(data->philo[i].thread, NULL) != 0)
-		return (-1);
+		if (pthread_join(data->philo[i].thread, NULL) != 0)
+			return (-1);
 	return (0);
 }
 

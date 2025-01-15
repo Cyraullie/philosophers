@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:40:29 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/15 13:42:14 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:50:34 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	*check_death(void *phi)
 	pthread_mutex_lock(&philo->data->m_stop);
 	pthread_mutex_lock(&philo->data->m_eat);
 	if (!is_dead(philo, 0)
-		&& philo->last_eat >= (long)(philo->data->t_die))
+		&& actual_ms(timestamp(), philo->data->t_start) \
+		- philo->last_eat >= philo->data->t_die)
 	{
 		print(philo, " died");
 		is_dead(philo, 1);
@@ -89,7 +90,7 @@ void	philo_eat(t_philo *philo)
 {
 	print(philo, " is eating");
 	pthread_mutex_lock(&(philo->data->m_eat));
-	philo->last_eat = timestamp() - philo->data->t_start;
+	philo->last_eat = actual_ms(timestamp(), philo->data->t_start);
 	philo->c_eat++;
 	pthread_mutex_unlock(&(philo->data->m_eat));
 	ft_usleep(philo->data->t_eat);
