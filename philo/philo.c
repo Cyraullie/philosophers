@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:40:29 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/15 17:58:56 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/01/16 10:54:39 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,32 +29,6 @@ void	*philo_life(void *phi)
 	}
 	pthread_join(death_checker, NULL);
 	return (NULL);
-}
-
-int	is_dead(t_philo *philo, int nb)
-{
-	pthread_mutex_lock(&philo->data->dead);
-	if (nb)
-		philo->data->stop = 1;
-	if (philo->data->stop)
-	{
-		pthread_mutex_unlock(&philo->data->dead);
-		return (1);
-	}
-	pthread_mutex_unlock(&philo->data->dead);
-	return (0);
-}
-
-int	enough_eat(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->data->eat_done);
-	if (philo->data->philo_eat == philo->data->nb_philo)
-	{
-		pthread_mutex_unlock(&philo->data->eat_done);
-		return (1);
-	}
-	pthread_mutex_unlock(&philo->data->eat_done);
-	return (0);
 }
 
 void	*check_death(void *phi)
@@ -104,7 +78,7 @@ void	philo_sleep(t_philo *philo)
 	print(philo, " is sleeping");
 	ft_usleep(philo->data->t_sleep);
 }
-//TODO faire la norminette
+
 void	philo_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->data->m_eat));
