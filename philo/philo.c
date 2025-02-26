@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:40:29 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/16 10:54:39 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:59:39 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	*check_death(void *phi)
 			is_dead(philo, 1);
 		}
 		pthread_mutex_unlock(&philo->data->m_eat);
+		ft_usleep(philo->data->t_die);
 	}
 	return (NULL);
 }
@@ -57,7 +58,7 @@ void	take_fork(t_philo *philo)
 	if (philo->data->nb_philo == 1)
 	{
 		pthread_mutex_lock(philo->fork_l);
-		print(philo, " has taken a fork");
+		print(philo, " has taken a fork l");
 		ft_usleep(philo->data->t_die);
 		print(philo, " died");
 		pthread_mutex_unlock(philo->fork_l);
@@ -67,9 +68,9 @@ void	take_fork(t_philo *philo)
 	if (philo->data->nb_philo > 1)
 	{			
 		pthread_mutex_lock(philo->fork_l);
-		print(philo, " has taken a fork");
+		print(philo, " has taken a fork l");
 		pthread_mutex_lock(philo->fork_r);
-		print(philo, " has taken a fork");
+		print(philo, " has taken a fork r");
 	}
 }
 
@@ -81,12 +82,12 @@ void	philo_sleep(t_philo *philo)
 
 void	philo_eat(t_philo *philo)
 {
-	pthread_mutex_lock(&(philo->data->m_eat));
-	pthread_mutex_lock(&philo->data->m_stop);
+	// pthread_mutex_lock(&(philo->data->m_eat));
+	// pthread_mutex_lock(&philo->data->m_stop);
 	print(philo, " is eating");
 	philo->last_eat = actual_ms(timestamp(), philo->data->t_start);
-	pthread_mutex_unlock(&philo->data->m_stop);
-	pthread_mutex_unlock(&(philo->data->m_eat));
+	// pthread_mutex_unlock(&philo->data->m_stop);
+	// pthread_mutex_unlock(&(philo->data->m_eat));
 	ft_usleep(philo->data->t_eat);
 	pthread_mutex_unlock(philo->fork_r);
 	pthread_mutex_unlock(philo->fork_l);

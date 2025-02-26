@@ -1,0 +1,6 @@
+The project overall seems well structured. The "infinite loop" makes some noise.
+And the tests under 200 are not accurate enough.
+Tests below 60 ms seems to block somehow, see if you can find a way to fix that.
+Not a bad attempt. Bonne continuation.
+
+y en a un qui meurent parce qu'il arrive pas a prendre une fourchette alors qu'elle est libre
