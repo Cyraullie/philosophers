@@ -6,7 +6,7 @@
 #    By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/08 11:31:20 by cgoldens          #+#    #+#              #
-#    Updated: 2025/01/15 16:52:55 by cgoldens         ###   ########.fr        #
+#    Updated: 2025/02/27 15:20:45 by cgoldens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,14 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -rf
 
-SRCS = main.c libft.c utils.c init.c philo.c philo2.c utils2.c
+SRCDIR = srcs/
+OBJDIR = objs/
 
-OBJ_DIR = temp
-OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+SRCS = $(addprefix $(SRCDIR), main.c libft.c utils.c init.c philo.c philo2.c utils2.c)
+
+OBJS = $(SRCS:$(SRCDIR)%.c=$(OBJDIR)%.o)
+
+INC = -I ./include/
 
 GREEN = \033[1;32m
 CYAN = \033[1;36m
@@ -40,18 +44,16 @@ header:
 	@echo "BY CGOLDENS"
 	@echo "$(RESET)"
 
-$(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
-
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -I ./ -c -o $@ $<
+$(OBJDIR)%.o: $(SRCDIR)%.c
+	@mkdir -p $(OBJDIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(INC) -o $(NAME)
 	@echo "$(CYAN)Build completed!$(RESET)"
 
 clean:
-	@$(RM) $(OBJ_DIR)
+	@$(RM) $(OBJDIR)
 	@echo "$(CYAN)Clean completed!$(RESET)"
 
 fclean: clean
@@ -61,4 +63,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+norm:
+	@norminette ./src/*.c ./inc/*.h
+
+.PHONY: all clean fclean re norm header

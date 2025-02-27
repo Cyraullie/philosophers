@@ -6,11 +6,11 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:35 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/15 17:06:45 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/02/27 15:08:38 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 long long	timestamp(void)
 {
@@ -32,12 +32,11 @@ void	print(t_philo *phi, char *str)
 {
 	int			dead;
 
-	pthread_mutex_lock(&(phi->data->g_stop));
-	dead = is_dead(phi, 0);
-	pthread_mutex_unlock(&(phi->data->g_stop));
 	pthread_mutex_lock(&(phi->data->print));
+	dead = is_dead(phi, 0);
 	if (!dead)
 	{
+		usleep(5);
 		printf("%d %d %s\n", actual_ms(timestamp(), \
 		phi->data->t_start), phi->id, str);
 	}

@@ -6,11 +6,11 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:41:04 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/16 10:54:32 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/02/27 15:08:27 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 void	philo_think(t_philo *philo)
 {
