@@ -6,28 +6,28 @@
 #    By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/08 11:31:20 by cgoldens          #+#    #+#              #
-#    Updated: 2025/02/27 15:25:58 by cgoldens         ###   ########.fr        #
+#    Updated: 2025/02/27 15:26:47 by cgoldens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo
+NAME	= philo
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
-RM = rm -rf
+CC		= gcc
+CFLAGS	= -Wall -Wextra -Werror -g
+RM		= rm -rf
 
-SRCDIR = ./srcs/
-OBJDIR = ./objs/
-INC = ./include/
+SRCDIR	= ./srcs/
+OBJDIR	= ./objs/
+INC		= ./include/
 
-SRCS = $(addprefix $(SRCDIR), main.c libft.c utils.c init.c philo.c philo2.c utils2.c)
+SRCS	= $(addprefix $(SRCDIR), main.c libft.c utils.c init.c philo.c philo2.c utils2.c)
 
-OBJS = $(SRCS:$(SRCDIR)%.c=$(OBJDIR)%.o)
+OBJS	= $(SRCS:$(SRCDIR)%.c=$(OBJDIR)%.o)
 
-GREEN = \033[1;32m
-CYAN = \033[1;36m
-YELLOW = \033[1;33m
-RESET = \033[0m
+GREEN	= \033[1;32m
+CYAN	= \033[1;36m
+YELLOW	= \033[1;33m
+RESET	= \033[0m
 
 # Règles
 all: header $(NAME)
