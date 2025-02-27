@@ -6,7 +6,7 @@
 #    By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/08 11:31:20 by cgoldens          #+#    #+#              #
-#    Updated: 2025/02/27 15:20:45 by cgoldens         ###   ########.fr        #
+#    Updated: 2025/02/27 15:25:58 by cgoldens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,13 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -rf
 
-SRCDIR = srcs/
-OBJDIR = objs/
+SRCDIR = ./srcs/
+OBJDIR = ./objs/
+INC = ./include/
 
 SRCS = $(addprefix $(SRCDIR), main.c libft.c utils.c init.c philo.c philo2.c utils2.c)
 
 OBJS = $(SRCS:$(SRCDIR)%.c=$(OBJDIR)%.o)
-
-INC = -I ./include/
 
 GREEN = \033[1;32m
 CYAN = \033[1;36m
@@ -49,7 +48,7 @@ $(OBJDIR)%.o: $(SRCDIR)%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(INC) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -I $(INC) -o $(NAME)
 	@echo "$(CYAN)Build completed!$(RESET)"
 
 clean:
@@ -60,10 +59,9 @@ fclean: clean
 	@$(RM) $(NAME)
 	@echo "$(CYAN)Full clean completed!$(RESET)"
 
-
 re: fclean all
 
 norm:
-	@norminette ./src/*.c ./inc/*.h
+	@norminette $(SRCDIR)*.c $(INC)*.h
 
 .PHONY: all clean fclean re norm header
