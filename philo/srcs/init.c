@@ -6,12 +6,19 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:03 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/02/27 15:08:38 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/03/03 14:55:06 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
+/**
+ * @brief process to construct data struct
+ * 
+ * @param data get struct build before
+ * @param ag get all arguments
+ * @return int return 0 if all is ok 1 if it's not
+ */
 int	data_init(t_data *data, char **ag)
 {
 	pthread_mutex_init(&data->print, NULL);
@@ -35,24 +42,13 @@ int	data_init(t_data *data, char **ag)
 	return (0);
 }
 
-int	monitor(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	while (++i < data->nb_philo)
-	{
-		if (pthread_create(&data->philo[i].thread, NULL,
-				&philo_life, &(data->philo[i])) != 0)
-			return (-1);
-	}
-	i = -1;
-	while (++i < data->nb_philo)
-		if (pthread_join(data->philo[i].thread, NULL) != 0)
-			return (-1);
-	return (0);
-}
-
+/**
+ * @brief process to create all philo
+ * 
+ * @param data  get struct build before
+ * @param f  get fork build before
+ * @return int return state of process
+ */
 int	philo_init(t_data *data, pthread_mutex_t *f)
 {
 	int				i;
@@ -76,6 +72,12 @@ int	philo_init(t_data *data, pthread_mutex_t *f)
 	return (monitor(data));
 }
 
+/**
+ * @brief process of creation one fork by philo
+ * 
+ * @param nb number of philo
+ * @return pthread_mutex_t* return array of fork with one thread each
+ */
 pthread_mutex_t	*add_fork(int nb)
 {
 	pthread_mutex_t	*forks;

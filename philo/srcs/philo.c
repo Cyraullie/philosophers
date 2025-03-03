@@ -6,97 +6,55 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:40:29 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/02/27 15:08:38 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/03/03 15:07:30 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	*philo_life(void *phi)
+/**
+ * @brief process of thinking
+ * 
+ * @param philo get a philo
+ */
+void	philo_think(t_philo *philo)
 {
-	t_philo		*philo;
-	pthread_t	death_checker;
-
-	philo = (t_philo *)phi;
-	if (philo->id % 2 == 0)
-		usleep(philo->data->t_eat / 10);
-	pthread_create(&death_checker, NULL, check_death, philo);
-	while (!is_dead(philo, 0))
-	{
-		philo_think(philo);
-		take_fork(philo);
-		philo_eat(philo);
-	}
-	pthread_join(death_checker, NULL);
-	return (NULL);
+	pthread_mutex_lock(&(philo->data->m_eat));
+	pthread_mutex_lock(&philo->data->m_stop);
+	if (!philo->data->stop)
+		print(philo, " is thinking");
+	pthread_mutex_unlock(&(philo->data->m_eat));
+	pthread_mutex_unlock(&philo->data->m_stop);
 }
 
-void	*check_death(void *phi)
+/**
+ * @brief process to check if a philo is dead
+ * 
+ * @param philo get a philo
+ * @param nb get a number to say that philo is dead
+ * @return int return true or false
+ */
+int	is_dead(t_philo *philo, int nb)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *)phi;
-	while (!is_dead(philo, 0))
+	pthread_mutex_lock(&philo->data->dead);
+	if (nb)
+		philo->data->stop = 1;
+	if (philo->data->stop)
 	{
-		pthread_mutex_lock(&philo->data->m_eat);
-		if ((!is_dead(philo, 0)
-				&& actual_ms(timestamp(), philo->data->t_start) \
-				- philo->last_eat >= philo->data->t_die) || enough_eat(philo))
-		{
-			if (!enough_eat(philo))
-				print(philo, " died");
-			is_dead(philo, 1);
-		}
-		pthread_mutex_unlock(&philo->data->m_eat);
-		ft_usleep(philo->data->t_die);
+		pthread_mutex_unlock(&philo->data->dead);
+		return (1);
 	}
-	return (NULL);
+	pthread_mutex_unlock(&philo->data->dead);
+	return (0);
 }
 
-void	take_fork(t_philo *philo)
-{
-	if (philo->data->nb_philo == 1)
-	{
-		pthread_mutex_lock(philo->fork_l);
-		print(philo, " has taken a fork l");
-		ft_usleep(philo->data->t_die);
-		print(philo, " died");
-		pthread_mutex_unlock(philo->fork_l);
-		is_dead(philo, 1);
-		return ;
-	}
-	if (philo->data->nb_philo > 1)
-	{			
-		pthread_mutex_lock(philo->fork_l);
-		print(philo, " has taken a fork l");
-		pthread_mutex_lock(philo->fork_r);
-		print(philo, " has taken a fork r");
-	}
-}
-
+/**
+ * @brief process of sleeping
+ * 
+ * @param philo get a philo
+ */
 void	philo_sleep(t_philo *philo)
 {
 	print(philo, " is sleeping");
 	ft_usleep(philo->data->t_sleep);
-}
-
-void	philo_eat(t_philo *philo)
-{
-	// pthread_mutex_lock(&(philo->data->m_eat));
-	// pthread_mutex_lock(&philo->data->m_stop);
-	print(philo, " is eating");
-	philo->last_eat = actual_ms(timestamp(), philo->data->t_start);
-	// pthread_mutex_unlock(&philo->data->m_stop);
-	// pthread_mutex_unlock(&(philo->data->m_eat));
-	ft_usleep(philo->data->t_eat);
-	pthread_mutex_unlock(philo->fork_r);
-	pthread_mutex_unlock(philo->fork_l);
-	pthread_mutex_lock(&(philo->data->m_eat));
-	pthread_mutex_lock(&philo->data->m_stop);
-	philo->c_eat++;
-	if (philo->c_eat == philo->data->n_eat)
-		philo->data->philo_eat++;
-	pthread_mutex_unlock(&philo->data->m_stop);
-	pthread_mutex_unlock(&(philo->data->m_eat));
-	philo_sleep(philo);
 }

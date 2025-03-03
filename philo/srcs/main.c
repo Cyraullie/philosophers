@@ -6,12 +6,18 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:45:50 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/02/27 15:08:38 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/03/03 15:04:47 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
+/**
+ * @brief process to free and delete any element at the end of programm
+ * 
+ * @param data get data struct
+ * @param f get fork array
+ */
 void	freeall(t_data *data, pthread_mutex_t **f)
 {
 	int	i;
@@ -32,6 +38,13 @@ void	freeall(t_data *data, pthread_mutex_t **f)
 	free(*f);
 }
 
+/**
+ * @brief process of creation forks and philos
+ * 
+ * @param data get data struct
+ * @param f get array of fork
+ * @return int return success of failed
+ */
 int	alloc(t_data *data, pthread_mutex_t **f)
 {
 	*f = add_fork(data->nb_philo);
@@ -41,6 +54,13 @@ int	alloc(t_data *data, pthread_mutex_t **f)
 	return (1);
 }
 
+/**
+ * @brief main function
+ * 
+ * @param ac get number of arguments
+ * @param ag get string of arguments
+ * @return int return success or failed
+ */
 int	main(int ac, char **ag)
 {
 	t_data			data;

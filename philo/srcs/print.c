@@ -1,17 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 16:52:28 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/02/27 15:08:38 by cgoldens         ###   ########.fr       */
+/*   Created: 2025/03/03 14:34:27 by cgoldens          #+#    #+#             */
+/*   Updated: 2025/03/03 14:37:02 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
+/**
+ * @brief print message if base argument aren't respected
+ * 
+ */
 void	print_msg_arg(void)
 {
 	write(2, "USAGE ./philo number_of_philosophers", 37);
@@ -19,24 +23,23 @@ void	print_msg_arg(void)
 	write(2, " time_to_sleep [number_of_times_each_philosopher_must_eat]\n", 60);
 }
 
-int	check_arg(char **ag)
+/**
+ * @brief print message of philo's activity
+ * 
+ * @param phi get the philo who do something
+ * @param str get string of message for what philo do
+ */
+void	print(t_philo *phi, char *str)
 {
-	int	i;
-	int	j;
+	int			dead;
 
-	if (ft_atoi(ag[1]) < 1)
-		return (1);
-	i = 1;
-	while (ag[i])
+	pthread_mutex_lock(&(phi->data->print));
+	dead = is_dead(phi, 0);
+	if (!dead)
 	{
-		j = 0;
-		while (ag[i][j])
-		{
-			if (!ft_isdigit(ag[i][j]))
-				return (1);
-			j++;
-		}
-		i++;
+		usleep(5);
+		printf("%d %d %s\n", actual_ms(timestamp(), \
+		phi->data->t_start), phi->id, str);
 	}
-	return (0);
+	pthread_mutex_unlock(&(phi->data->print));
 }

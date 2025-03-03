@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:54:30 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/01/15 17:44:03 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/03/03 14:58:41 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ void			freeall(t_data *data, pthread_mutex_t **f);
 void			print_msg_arg(void);
 int				check_arg(char **ag);
 int				enough_eat(t_philo *philo);
+int				monitor(t_data *data);
+void			philo_sleep(t_philo *philo);
 
 #endif

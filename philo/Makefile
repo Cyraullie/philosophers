@@ -6,7 +6,7 @@
 #    By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/08 11:31:20 by cgoldens          #+#    #+#              #
-#    Updated: 2025/02/27 15:26:47 by cgoldens         ###   ########.fr        #
+#    Updated: 2025/03/03 14:46:03 by cgoldens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCDIR	= ./srcs/
 OBJDIR	= ./objs/
 INC		= ./include/
 
-SRCS	= $(addprefix $(SRCDIR), main.c libft.c utils.c init.c philo.c philo2.c utils2.c)
+SRCS	= $(addprefix $(SRCDIR), main.c libft.c utils.c init.c philo.c eat.c print.c monitor.c)
 
 OBJS	= $(SRCS:$(SRCDIR)%.c=$(OBJDIR)%.o)
 
