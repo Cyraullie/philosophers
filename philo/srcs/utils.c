@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:05:35 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/03/03 15:10:35 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/03/05 16:57:39 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ unsigned int	actual_ms(long long ms, long long start)
  */
 void	ft_usleep(int ms)
 {
-	long int	time;
+	long long	start_time;
 
-	time = timestamp();
-	while (timestamp() - time < ms)
-		usleep(ms / 10);
+	start_time = timestamp();
+	while ((int)(timestamp() - start_time) < ms)
+		usleep(50);
 }
 
 /**

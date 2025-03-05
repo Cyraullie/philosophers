@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 14:34:27 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/03/03 14:37:02 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:30:44 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	print(t_philo *phi, char *str)
 	dead = is_dead(phi, 0);
 	if (!dead)
 	{
-		usleep(5);
 		printf("%d %d %s\n", actual_ms(timestamp(), \
 		phi->data->t_start), phi->id, str);
 	}

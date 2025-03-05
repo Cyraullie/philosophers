@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 14:44:55 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/03/03 14:47:56 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:30:42 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,21 @@ int	enough_eat(t_philo *philo)
 }
 
 /**
+ * @brief process to handle if there is only one philo
+ * 
+ * @param philo get one philo
+ */
+void	handle_one(t_philo *philo)
+{
+	pthread_mutex_lock(philo->fork_l);
+	print(philo, " has taken a fork");
+	ft_usleep(philo->data->t_die);
+	print(philo, " died");
+	pthread_mutex_unlock(philo->fork_l);
+	is_dead(philo, 1);
+}
+
+/**
  * @brief process to take a left and right fork
  * 
  * @param philo get one philo
@@ -38,21 +53,23 @@ int	enough_eat(t_philo *philo)
 void	take_fork(t_philo *philo)
 {
 	if (philo->data->nb_philo == 1)
-	{
-		pthread_mutex_lock(philo->fork_l);
-		print(philo, " has taken a fork");
-		ft_usleep(philo->data->t_die);
-		print(philo, " died");
-		pthread_mutex_unlock(philo->fork_l);
-		is_dead(philo, 1);
-		return ;
-	}
+		handle_one(philo);
 	if (philo->data->nb_philo > 1)
-	{			
-		pthread_mutex_lock(philo->fork_l);
-		print(philo, " has taken a fork");
-		pthread_mutex_lock(philo->fork_r);
-		print(philo, " has taken a fork");
+	{		
+		if (philo->id % 2 == 0)
+		{
+			pthread_mutex_lock(philo->fork_l);
+			print(philo, " has taken a fork");
+			pthread_mutex_lock(philo->fork_r);
+			print(philo, " has taken a fork");
+		}
+		else
+		{
+			pthread_mutex_lock(philo->fork_r);
+			print(philo, " has taken a fork");
+			pthread_mutex_lock(philo->fork_l);
+			print(philo, " has taken a fork");
+		}
 	}
 }
 
