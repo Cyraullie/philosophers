@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 14:44:55 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/03/05 17:30:42 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:45:43 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	take_fork(t_philo *philo)
 	if (philo->data->nb_philo == 1)
 		handle_one(philo);
 	if (philo->data->nb_philo > 1)
-	{		
+	{
 		if (philo->id % 2 == 0)
 		{
 			pthread_mutex_lock(philo->fork_l);

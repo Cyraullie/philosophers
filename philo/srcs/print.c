@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 14:34:27 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/03/05 17:30:44 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:46:19 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	print_msg_arg(void)
 {
 	write(2, "USAGE ./philo number_of_philosophers", 37);
 	write(2, " time_to_die time_to_eat", 25);
-	write(2, " time_to_sleep [number_of_times_each_philosopher_must_eat]\n", 60);
+	write(2, " time_to_sleep [number_of_times_each_philosopher_must_eat]\n", \
+		60);
 }
 
 /**

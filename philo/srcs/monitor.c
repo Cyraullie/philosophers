@@ -6,7 +6,7 @@
 /*   By: cgoldens <cgoldens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 14:38:32 by cgoldens          #+#    #+#             */
-/*   Updated: 2025/03/05 16:20:59 by cgoldens         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:45:30 by cgoldens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*philo_life(void *phi)
 	philo->last_eat = actual_ms(timestamp(), philo->data->t_start);
 	philo_think(philo);
 	if (philo->id % 2 == 0)
-	ft_usleep(philo->data->t_eat / 10);
+		ft_usleep(philo->data->t_eat / 10);
 	pthread_create(&death_checker, NULL, check_death, philo);
 	while (!is_dead(philo, 0))
 	{
